@@ -3,6 +3,7 @@ package com.example.springsocial.controller;
 import com.example.springsocial.api.facebook.Facebook;
 import com.example.springsocial.api.facebook.Profile;
 import com.example.springsocial.api.facebook.album.Album;
+import com.example.springsocial.api.facebook.album.AlbumResponse;
 import com.example.springsocial.exception.ResourceNotFoundException;
 import com.example.springsocial.model.User;
 import com.example.springsocial.repository.UserRepository;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2Aut
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -42,11 +44,18 @@ public class UserController {
 
     @GetMapping("/user/me/photos")
     @PreAuthorize("hasRole('USER')")
-    public List<Album> getCurrentUserPhotos(@CurrentUser UserPrincipal userPrincipal,
-                                     @AuthenticationPrincipal OAuth2User oauth2User) {
+    public AlbumResponse getCurrentUserPhotos(@RequestParam(name="more", required = false) String paging ) {
 
-       return facebookApi.getAlbums();
+        if(paging == null){
+            return facebookApi.getAlbums();
+        } else {
+            return facebookApi.getAlbums(paging);
+        }
+
+
     }
+
+
 
 
 }
