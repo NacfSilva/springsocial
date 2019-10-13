@@ -42,10 +42,10 @@ public class UserController {
 
     @GetMapping("/user/me/photos")
     @PreAuthorize("hasRole('USER')")
-    public Album getCurrentUserPhotos(@CurrentUser UserPrincipal userPrincipal,
+    public List<Album> getCurrentUserPhotos(@CurrentUser UserPrincipal userPrincipal,
                                      @AuthenticationPrincipal OAuth2User oauth2User) {
 
-       return facebookApi.getAlbums().get(0);
+       return facebookApi.getAlbums();
     }
 
 
