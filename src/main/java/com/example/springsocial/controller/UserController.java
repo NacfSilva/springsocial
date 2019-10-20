@@ -44,13 +44,15 @@ public class UserController {
 
     @GetMapping("/user/me/photos")
     @PreAuthorize("hasRole('USER')")
-    public AlbumResponse getCurrentUserPhotos(@RequestParam(name="more", required = false) String paging ) {
+    public AlbumResponse getCurrentUserPhotos(@RequestParam(name="more", required = false) String paging,
+                                              @RequestParam(name="limit", required = false) Integer limit,
+                                              @RequestParam(name="after", required = false) String after) {
 
         if(paging == null){
             return facebookApi.getAlbums();
         } else {
             AlbumResponse response= new AlbumResponse();
-            response.setAlbums(facebookApi.getAlbums(paging));
+            response.setAlbums(facebookApi.getAlbums(paging,limit,after));
             return response;
         }
 
