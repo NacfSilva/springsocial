@@ -49,7 +49,9 @@ public class UserController {
         if(paging == null){
             return facebookApi.getAlbums();
         } else {
-            return facebookApi.getAlbums(paging);
+            AlbumResponse response= new AlbumResponse();
+            response.setAlbums(facebookApi.getAlbums(paging));
+            return response;
         }
 
 

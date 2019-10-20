@@ -28,8 +28,8 @@ public class Facebook extends ApiBinding {
 		return restTemplate.getForObject(GRAPH_API_BASE_URL + "/me?fields=albums.limit(5){queryFilter}", AlbumResponse.class,queryFilter);
 	}
 
-    public AlbumResponse getAlbums(String page) {
-        return restTemplate.getForObject(page, AlbumResponse.class);
+    public Albums getAlbums(String page) {
+        return restTemplate.getForObject(page, Albums.class,"{picture}");
     }
 
 
